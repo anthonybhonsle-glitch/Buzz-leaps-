@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "Score": {
+      "title": "Score",
+      "description": "A game score entry for the leaderboard",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string", "description": "The UID of the user who achieved the score" },
+        "userName": { "type": "string", "description": "The display name of the user" },
+        "score": { "type": "number", "description": "The score achieved" },
+        "mode": { "type": "string", "enum": ["classic", "timed", "zen"], "description": "The game mode" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "When the score was achieved" }
+      },
+      "required": ["userId", "userName", "score", "mode", "timestamp"]
+    },
+    "User": {
+      "title": "User",
+      "description": "User profile and stats",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The unique ID of the user" },
+        "displayName": { "type": "string", "description": "The display name of the user" },
+        "photoURL": { "type": "string", "description": "The profile picture URL" },
+        "highScore": { "type": "number", "description": "The overall high score" },
+        "isPro": { "type": "boolean", "description": "Whether the user has a Pro subscription" }
+      },
+      "required": ["uid", "displayName"]
+    }
+  },
+  "firestore": {
+    "/scores/{scoreId}": {
+      "schema": "Score",
+      "description": "Global leaderboard scores"
+    },
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profiles and private data"
+    }
+  }
+}
